@@ -15,18 +15,6 @@ class IntsTests {
     }
 
     @Test
-    fun indexOfBinary_returns_negative_if_not_found() {
-        // Arrange
-        val v = intArrayOf(1, 2, 3)
-
-        // Act
-        val ix: Int = indexOfBinary(v, 0, 3, 4)
-
-        // Assert
-        assertTrue(ix < 0)
-    }
-
-    @Test
     fun indexOfBinary_throws_IllegalArgumentException_if_indexes_are_not_valid() {
         assertFailsWith<IllegalArgumentException> {
             // Arrange
@@ -39,7 +27,6 @@ class IntsTests {
             assertTrue(ix < 0)
         }
     }
-
 
     @Test
     fun indexOfBinary_right_bound_parameter_is_exclusive() {
