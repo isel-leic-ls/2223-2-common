@@ -13,7 +13,6 @@ function getRouteHandler(path){
     return route ? route.handler : notFoundRouteHandler
 }
 
-
 const router = {
     addRouteHandler,
     getRouteHandler,

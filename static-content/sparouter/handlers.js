@@ -34,6 +34,12 @@ function getStudents(mainContent){
             h1.appendChild(text)
             div.appendChild(h1)
 
+            const aCreateStudent = document.createElement("a")
+            const createText = document.createTextNode("New Student" );
+            aCreateStudent.appendChild(createText)
+            aCreateStudent.href="#students/create"
+            div.appendChild(aCreateStudent)
+
             students.forEach(s => {
                 const p = document.createElement("p")
                 const a = document.createElement("a")
@@ -68,10 +74,72 @@ function getStudent(mainContent){
     })
 }
 
+/*<form id = "createStudent" >
+    <label>Name</label>
+    <input type="text" id="idName" >
+    <label>Number</label>
+    <input type="text" id="idNumber" >
+    <input type="submit" >
+</form>*/
+
+function createStudent(mainContent){
+        const form = document.createElement("form")
+
+        const labelName = document.createElement("label")
+        const textName = document.createTextNode("Name")
+        labelName.appendChild(textName)
+        const inputName = document.createElement("input")
+        inputName.type = "text"
+        inputName.id = "idName"
+
+        const labelNumber = document.createElement("label")
+        const textNumber = document.createTextNode("Number")
+        labelNumber.appendChild(textNumber)
+        const inputNumber= document.createElement("input")
+        inputNumber.type = "text"
+        inputNumber.id = "idNumber"
+
+        const inputSubmit = document.createElement("input")
+        inputSubmit.type = "submit"
+
+        form.appendChild(labelName)
+        form.appendChild(inputName)
+        form.appendChild(labelNumber)
+        form.appendChild(inputNumber)
+        form.appendChild(inputSubmit)
+
+        form.addEventListener('submit', handleSubmit)
+
+        function handleSubmit(e) {
+            e.preventDefault()
+            const inputName = document.querySelector("#idName")
+            const inputNumber = document.querySelector("#idNumber")
+            const options = {
+                    method : "POST",
+                    headers : {
+                        "Content-Type" : "application/json",
+                        "Accept" : "application/json"
+                    },
+                    body : JSON.stringify({
+                        name : inputName.value,
+                        number : parseInt(inputNumber.value)
+                    })
+                }
+                fetch(API_BASE_URL + "students", options)
+                    .then(res => res.json())
+                    .then(student => {
+                        console.log(student)
+                        window.location.hash = "students"
+                    })
+        }
+        mainContent.replaceChildren(form)
+}
+
 export const handlers = {
     getHome,
     getStudent,
     getStudents,
+    createStudent
 }
 
 export default handlers

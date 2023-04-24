@@ -25,6 +25,14 @@ tasks.test {
     useJUnitPlatform()
 }
 
+tasks.named<Jar>("jar") {
+    dependsOn("copyRuntimeDependencies")
+    manifest {
+        attributes["Main-Class"] = "pt.isel.ls.http.HTTPServerKt"
+        attributes["Class-Path"] = configurations.runtimeClasspath.get().joinToString(" ") { it.name }
+    }
+}
+
 tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "17"
 }

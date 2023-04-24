@@ -33,7 +33,7 @@ val students = mutableListOf(
 
 fun getStudents(request: Request): Response {
     logRequest(request)
-    val limit = request.query("limit")?.toInt() ?: 2
+    val limit = request.query("limit")?.toInt() ?: 5
     return Response(OK)
         .header("content-type", "application/json")
         .body(Json.encodeToString(students.take(limit)))
